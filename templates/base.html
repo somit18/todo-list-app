@@ -1,23 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>{% block title %}To-Do List{% endblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <meta charset="UTF-8">
+  <title>{% block title %}To-Do List{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>
-    <!-- Background Animation -->
-    <div class="background"></div>
+<body style="position: relative; z-index: 1;">
+  <!-- Background that stays behind everything -->
+  <div class="background"></div>
 
-    <!-- Main Layout -->
-    <div class="main-wrapper container py-5">
-        {% block content %}{% endblock %}
-    </div>
+  <!-- Content Area -->
+  <div class="main-wrapper container py-5 position-relative" style="z-index: 10;">
+    {% block content %}{% endblock %}
+</div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+  <!-- Global Edit Modal -->
+<div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="editTaskModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <form method="POST" class="modal-content" id="editForm">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editTaskModalLabel">Edit Task</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control" name="content" id="editTaskInput" required>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>

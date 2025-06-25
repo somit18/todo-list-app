@@ -20,10 +20,17 @@
                     <span class="{% if task[2] == 'complete' %}text-decoration-line-through text-muted{% endif %}">
                         {{ task[1] }}
                     </span>
-                    <div>
+
+                    <div class="d-flex align-items-center">
                         {% if task[2] != 'complete' %}
                             <a href="/complete/{{ task[0] }}" class="btn btn-outline-success btn-sm me-1">✅</a>
                         {% endif %}
+                        <!-- Edit Button -->
+                        <button type="button"
+                                class="btn btn-outline-warning btn-sm me-1"
+                                onclick="openEditModal('{{ task[0] }}', '{{ task[1] }}')">
+                            ✏️
+                        </button>
                         <a href="/delete/{{ task[0] }}" class="btn btn-outline-danger btn-sm">🗑️</a>
                     </div>
                 </div>

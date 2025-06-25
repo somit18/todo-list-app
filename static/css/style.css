@@ -1,11 +1,12 @@
-body {
+/* Full reset to avoid z-index bug */
+body, html {
     margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: #1f1f1f;
-    color: #fff;
+    padding: 0;
     overflow-x: hidden;
+    height: 100%;
 }
 
+/* Background stays far behind everything */
 .background {
     position: fixed;
     top: 0;
@@ -13,29 +14,69 @@ body {
     width: 100vw;
     height: 100vh;
     background: radial-gradient(circle at top left, #2c3e50, #1f1f1f);
-    z-index: -1;
+    z-index: -9999; /* SUPER behind */
     animation: animateBG 20s infinite alternate;
 }
 
+/* Background animation */
 @keyframes animateBG {
     0% { background-position: left top; }
     100% { background-position: right bottom; }
 }
 
+/* Glassmorphism effect for main card */
 .glass-effect {
     background: rgba(255, 255, 255, 0.07);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 20px;
     color: #fff;
+    z-index: 2;
+    position: relative;
 }
 
+/* Task cards */
 .task-card {
     background-color: rgba(255, 255, 255, 0.05);
     border-left: 5px solid #0d6efd;
+    transition: background-color 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.task-card:hover {
+    background-color: rgba(255, 255, 255, 0.09);
 }
 
 .task-complete {
     background-color: rgba(0, 255, 127, 0.1);
     border-left: 5px solid #198754;
 }
+
+/* Bootstrap modal should be on top no matter what */
+.modal,
+.modal-backdrop {
+    z-index: 1055 !important;
+}
+
+/* Force modal and backdrop to be at top level */
+.modal-backdrop {
+    z-index: 1050 !important;
+    position: fixed !important;
+}
+
+.modal {
+    z-index: 1055 !important;
+    position: fixed !important;
+}
+
+body.modal-open {
+    overflow: hidden !important;
+}
+
+/* Force background behind everything */
+.background {
+    z-index: -9999 !important;
+    position: fixed !important;
+}
+

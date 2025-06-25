@@ -60,6 +60,19 @@ def delete(task_id):
     conn.close()
     return redirect(url_for('index', added='true'))
 
+# --- Edit Task ---
+@app.route('/edit/<int:task_id>', methods=['POST'])
+def edit(task_id):
+    new_content = request.form.get('content')
+    if new_content:
+        conn = sqlite3.connect('database.db')
+        c = conn.cursor()
+        c.execute('UPDATE tasks SET content=? WHERE id=?', (new_content, task_id))
+        conn.commit()
+        conn.close()
+    return redirect(url_for('index'))
+
+
 
 if __name__ == '__main__':
     init_db()
