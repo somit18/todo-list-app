@@ -36,7 +36,8 @@ def add():
         c.execute('INSERT INTO tasks (content) VALUES (?)', (content,))
         conn.commit()
         conn.close()
-    return redirect(url_for('index'))
+    return redirect(url_for('index', added='true'))
+
 
 # --- Mark Complete ---
 @app.route('/complete/<int:task_id>')
@@ -46,7 +47,8 @@ def complete(task_id):
     c.execute('UPDATE tasks SET status="complete" WHERE id=?', (task_id,))
     conn.commit()
     conn.close()
-    return redirect(url_for('index'))
+    return redirect(url_for('index', added='true'))
+
 
 # --- Delete Task ---
 @app.route('/delete/<int:task_id>')
@@ -56,7 +58,8 @@ def delete(task_id):
     c.execute('DELETE FROM tasks WHERE id=?', (task_id,))
     conn.commit()
     conn.close()
-    return redirect(url_for('index'))
+    return redirect(url_for('index', added='true'))
+
 
 if __name__ == '__main__':
     init_db()
