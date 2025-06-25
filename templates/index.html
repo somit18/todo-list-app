@@ -1,30 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>To-Do List</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h1>📝 To-Do List</h1>
+{% extends "base.html" %}
+{% block title %}Home - To-Do List{% endblock %}
 
-        <form action="/add" method="post">
-            <input type="text" name="content" placeholder="Enter a new task" required>
-            <button type="submit">Add Task</button>
-        </form>
+{% block content %}
+<div class="card shadow-lg p-4 rounded-4 glass-effect">
+    <h1 class="text-center mb-4">🚀 My Tasks</h1>
 
-        <ul>
+    <!-- Add Task -->
+    <form action="/add" method="POST" class="d-flex mb-4">
+        <input type="text" name="content" class="form-control me-2" placeholder="Enter a task..." required>
+        <button class="btn btn-primary" type="submit">➕ Add</button>
+    </form>
+
+    <!-- Task List -->
+    {% if tasks %}
+        <div class="task-list">
             {% for task in tasks %}
-                <li class="{{ 'completed' if task[2] == 'complete' else '' }}">
-                    {{ task[1] }}
-                    {% if task[2] != 'complete' %}
-                        <a href="/complete/{{ task[0] }}">✅</a>
-                    {% endif %}
-                    <a href="/delete/{{ task[0] }}">🗑️</a>
-                </li>
+                <div class="task-card d-flex justify-content-between align-items-center mb-3 p-3 rounded-3 
+                            {% if task[2] == 'complete' %}task-complete{% endif %}">
+                    <span class="{% if task[2] == 'complete' %}text-decoration-line-through text-muted{% endif %}">
+                        {{ task[1] }}
+                    </span>
+                    <div>
+                        {% if task[2] != 'complete' %}
+                            <a href="/complete/{{ task[0] }}" class="btn btn-outline-success btn-sm me-1">✅</a>
+                        {% endif %}
+                        <a href="/delete/{{ task[0] }}" class="btn btn-outline-danger btn-sm">🗑️</a>
+                    </div>
+                </div>
             {% endfor %}
-        </ul>
-    </div>
-</body>
-</html>
+        </div>
+    {% else %}
+        <p class="text-center text-muted">Start by adding your first task 🧠</p>
+    {% endif %}
+</div>
+{% endblock %}
