@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #1f1f1f;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at top left, #2c3e50, #1f1f1f);
+    z-index: -1;
+    animation: animateBG 20s infinite alternate;
+}
+
+@keyframes animateBG {
+    0% { background-position: left top; }
+    100% { background-position: right bottom; }
+}
+
+.glass-effect {
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    color: #fff;
+}
+
+.task-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-left: 5px solid #0d6efd;
+}
+
+.task-complete {
+    background-color: rgba(0, 255, 127, 0.1);
+    border-left: 5px solid #198754;
+}
